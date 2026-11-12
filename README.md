@@ -11,6 +11,11 @@ krnlh3x reads the running kernel's real state, not just its configuration
 files. It scores the result against KSPP and Microsoft baselines and prints
 the exact command that fixes each gap.
 
+
+<p align="center"><img src="docs/demo.svg" alt="krnlh3x demo" width="100%"></p>
+
+<sub>Recorded from real output on a WSL2 kernel. Regenerate with `python3 tools/gen_demo.py`.</sub>
+
 ## Linux
 
 | Area | What is checked |
@@ -40,6 +45,31 @@ SpeculationControl module use.
 | WLSA-001/002 | LSA protection (RunAsPPL); WDigest cleartext credential caching |
 | WMEM-001 | System DEP policy |
 | WSPC-001..007 | Spectre v2 / BTI, Meltdown (KVA shadow), L1TF, MDS, SSBD and SMEP, plus mitigations disabled through `FeatureSettingsOverride` |
+
+## Install
+
+**Pre-built binaries** (from [Releases](https://github.com/grimh3xx/krnlh3x/releases/latest)):
+
+```sh
+# Linux x64
+curl -fsSL -o krnlh3x https://github.com/grimh3xx/krnlh3x/releases/latest/download/krnlh3x-linux-x64
+chmod +x krnlh3x && sudo mv krnlh3x /usr/local/bin/
+```
+
+```powershell
+# Windows x64 (PowerShell)
+iwr https://github.com/grimh3xx/krnlh3x/releases/latest/download/krnlh3x-windows-x64.exe -OutFile krnlh3x.exe
+.\krnlh3x.exe --help
+```
+
+**From source** (Rust 1.82+):
+
+```sh
+cargo install --git https://github.com/grimh3xx/krnlh3x
+```
+
+Windows checks work from a normal shell; some registry policy values read better elevated. The binaries are not code-signed, so SmartScreen or Defender may flag
+them heuristically. Build from source if you prefer to verify.
 
 ## Usage
 

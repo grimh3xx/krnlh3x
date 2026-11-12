@@ -1,0 +1,21 @@
+{
+  "title": "krnlh3x \u2014 kernel hardening audit",
+  "prompt": {
+    "user": "grimh3xx@krnlh3x",
+    "path": "~/krnlh3x"
+  },
+  "steps": [
+    {
+      "show": "krnlh3x --min-severity medium",
+      "run": "./target/release/krnlh3x --min-severity medium",
+      "chunk": 2,
+      "hold": 40
+    },
+    {
+      "show": "krnlh3x --area cpu,lockdown -a",
+      "run": "./target/release/krnlh3x --area cpu,lockdown -a --min-severity high | sed -n '/checks/,$p'",
+      "chunk": 2,
+      "hold": 50
+    }
+  ]
+}
